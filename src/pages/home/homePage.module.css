@@ -1,27 +1,11 @@
-.main {
-    display: flex;
-    justify-content: center;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.title {
-    color: black;
-    font-size: 44px;
-}
 .header {
     background: linear-gradient(90.55deg, rgba(0, 0, 0, 0) 0.41%, rgba(0, 0, 0, 0.7) 99.47%), url('../../assets/body.png') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding: 20px;
-    height: 600px; /* Задайте подходящую высоту */
-    color: #fff; /* Сделайте текст белым, чтобы он контрастировал с фоном */
-
+    height: 600px;
+    color: #fff;
 }
 
 .headerText {
@@ -30,7 +14,7 @@
     padding: 20px;
     border-radius: 10px;
     margin-right: 45px;
-    line-height: 1.1; /* Добавьте это свойство */
+    line-height: 1.1;
 }
 
 .headerText h1 {
@@ -48,9 +32,87 @@
     line-height: 28.13px;
     text-align: left;
 }
+
 .buttonContainer {
     display: flex;
     flex-direction: row;
-    gap: 20px; /* Пространство между кнопками */
-    margin-top: 20px; /* Отступ сверху */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: auto; /* Высота по контенту */
+        padding: 10px;
+        justify-content: center;
+    }
+
+    .headerText {
+        margin-right: 0;
+        text-align: center;
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .headerText h1 {
+        font-size: 28px;
+        line-height: 32px;
+    }
+
+    .headerText p {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .buttonContainer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .headerText h1 {
+        font-size: 24px;
+    }
+
+    .headerText p {
+        font-size: 16px;
+    }
+}
+
+
+@media (max-width: 425px) {
+    .header {
+        height: auto; /* Высота по контенту */
+        padding: 7px;
+        justify-content: center;
+    }
+
+    .headerText {
+        margin-right: 0;
+        text-align: center;
+        max-width: 100%;
+        padding: 7px;
+    }
+
+    .headerText h1 {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .headerText p {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .buttonContainer {
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .headerText h1 {
+        font-size: 20px;
+    }
+
+    .headerText p {
+        font-size: 14px;
+    }
 }
