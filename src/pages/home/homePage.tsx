@@ -1,17 +1,36 @@
-import bodyImage from '../../assets/body.png';
-
 import styles from './homePage.module.css';
-import {Col, Container, Row} from '@gravity-ui/uikit';
+import {Button} from '@gravity-ui/uikit';
+
+/*
+import { Col, Container, Row } from '@gravity-ui/uikit';
+*/
 
 export const HomePage: React.FC = () => {
     return (
         <>
-            <header>
-                <img className={styles.bodyImage} src={bodyImage}></img>
+            <header className={styles.header}>
+                <div className={styles.headerText}>
+                    <h1>
+                        Проектная деятельность ИУЦТ! <br /> Что это?
+                    </h1>{' '}
+                    <p>
+                        Проектная деятельность ИУЦТ - это вовлечение студентов в работу по решению
+                        практических и исследовательских задач, как в университете, так и за его
+                        пределами. Проектная деятельность является одной из форм осуществления
+                        учебного процесса.
+                    </p>
+                    <div className={styles.buttonContainer}>
+                        <Button view="action" size="xl" pin="round-round" width="max">
+                            Витрина проектов
+                        </Button>
+                        <Button view="action" size="xl" pin="round-round" width="max">
+                            Проектная заявка
+                        </Button>
+                    </div>
+                </div>
             </header>
-
             <main>
-                <Container maxWidth="l" className={styles.container}>
+                {/*                <Container maxWidth="l" className={styles.container}>
                     <h5 className={styles.title}>О проектной деятельности в ИУЦТ</h5>
                     <Row
                         space={{
@@ -36,7 +55,7 @@ export const HomePage: React.FC = () => {
                             <span>jbrfed</span>
                         </Col>
                     </Row>
-                </Container>
+                </Container>*/}
             </main>
         </>
     );
