@@ -40,6 +40,44 @@
     margin-top: 20px;
 }
 
+main h2 {
+    font-family: Roboto, sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 46.88px;
+    text-align: center;
+}
+footer {
+    background: rgba(27, 54, 93, 1);
+
+}
+.footerCenter {
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footerImageLogo {
+    width: 15rem;
+    height: 15rem;
+}
+
+.footerImage {
+    width: 50rem;
+    height: auto;
+    padding-top: 100px;
+}
+.footerText {
+    font-family: Roboto, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.44px;
+    text-align: left;
+    color: #fff;
+}
+
 @media (max-width: 768px) {
     .header {
         height: auto; /* Высота по контенту */
@@ -76,10 +114,25 @@
     .headerText p {
         font-size: 16px;
     }
+    main h2{
+        font-size: 32px;
+    }
+    .footerText {
+        font-size: 16px;
+    }
+    .footerImageLogo {
+        width: 10rem;
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .footerImage {
+        width: 45rem;
+        height: auto; /* Maintain aspect ratio */
+    }
 }
 
 
-@media (max-width: 425px) {
+@media (max-width: 426px) {
     .header {
         height: auto; /* Высота по контенту */
         padding: 7px;
@@ -114,5 +167,19 @@
 
     .headerText p {
         font-size: 14px;
+    }
+    main h2{
+        font-size: 24px;
+    }
+    .footerText {
+        font-size: 16px;
+    }
+    .footerImageLogo {
+        width: 7rem;
+        height: auto; /* Maintain aspect ratio */
+    }
+    .footerImage {
+        width: 14rem;
+        height: auto; /* Maintain aspect ratio */
     }
 }
