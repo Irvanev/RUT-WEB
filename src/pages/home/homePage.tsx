@@ -51,7 +51,7 @@ export const HomePage: React.FC = () => {
             </main>
             <footer>
                 <div className={styles.footerCenter}>
-                    <img className={styles.footerImageLogo} src={logo} alt="Logo IMDT" />
+                    <img className={styles.footerImageLogo} src={logo} alt="Logo IUDT" />
                     <div className={styles.footerText}>
                         <p>© 2024 ИУЦТ</p>
                     </div>

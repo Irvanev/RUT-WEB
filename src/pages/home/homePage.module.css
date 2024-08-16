@@ -40,6 +40,10 @@
     margin-top: 20px;
 }
 
+main {
+    background: rgba(242, 242, 242, 1);
+
+}
 main h2 {
     font-family: Roboto, sans-serif;
     font-size: 40px;
@@ -60,8 +64,8 @@ footer {
 }
 
 .footerImageLogo {
-    width: 15rem;
-    height: 15rem;
+    width: 10rem;
+    height: 10rem;
 }
 
 .footerImage {
