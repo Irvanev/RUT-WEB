@@ -1,0 +1,19 @@
+.bodyImage {
+    width: 100%;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.title {
+    color: black;
+    font-size: 44px;
+}

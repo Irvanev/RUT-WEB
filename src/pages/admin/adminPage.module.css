@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+.leftCard {
+    padding: 20px 20px;
+    width: 40%;
+    height: 80%;
+}
+
+.rightCard {
+    width: 50%;
+    height: 80%;
+}
+
+.col {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.table {
+    width: 100%;
+}
