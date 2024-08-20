@@ -23,7 +23,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/context/AuthContext.jsx"  ],
   "exclude": [
     "node_modules"
   ]
