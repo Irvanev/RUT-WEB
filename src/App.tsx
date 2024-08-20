@@ -1,11 +1,14 @@
 import {RouterProvider, createBrowserRouter} from 'react-router-dom';
+// import {AuthProvider} from './context/AuthContext';
 import {AdminPage} from './pages/admin/adminPage';
 import {HomePage} from './pages/home/homePage';
-import {ThemeProvider} from '@gravity-ui/uikit';
+import {Spin, ThemeProvider} from '@gravity-ui/uikit';
 import {FormPage} from './pages/form/formPage';
+import ErrorPage from './pages/error/ErrorPage';
 
 const router = createBrowserRouter([
     {
+        errorElement: <ErrorPage />,
         path: '/',
         element: <HomePage />,
     },
@@ -22,7 +25,9 @@ const router = createBrowserRouter([
 const App = () => {
     return (
         <ThemeProvider theme="light">
-            <RouterProvider router={router} />
+            {/* <AuthProvider> */}
+            <RouterProvider router={router} fallbackElement={<Spin />} />
+            {/* </AuthProvider> */}
         </ThemeProvider>
     );
 };

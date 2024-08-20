@@ -1,0 +1,12 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+    width: 100%;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0px 8px 20px 0px #00000026;
+    background: var(--Branding-Base-Background, #ffffff);
+    margin-bottom: 20px;
+}
