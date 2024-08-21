@@ -1,5 +1,5 @@
 .header {
-    background: linear-gradient(90.55deg, rgba(0, 0, 0, 0) 0.41%, rgba(0, 0, 0, 0.7) 99.47%), url('../../assets/body.png') center/cover no-repeat;
+    background: linear-gradient(90.55deg, rgba(0, 0, 0, 0) 0.41%, rgba(0, 0, 0, 0.8) 99.47%), url('../../assets/body.png') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -42,7 +42,7 @@
 
 main {
     background: rgba(242, 242, 242, 1);
-
+    padding: 100px ;
 }
 main h2 {
     font-family: Roboto, sans-serif;
@@ -50,11 +50,95 @@ main h2 {
     font-weight: 400;
     line-height: 46.88px;
     text-align: center;
+    margin: 0;
 }
 footer {
     background: rgba(27, 54, 93, 1);
 
 }
+
+.about {
+    display: flex;
+    align-items: stretch; /* Растягиваем элементы по высоте контейнера */
+    justify-content: space-between;
+    padding: 25px 0 25px 0;
+    background-color: #f2f2f2;
+}
+
+.about .image {
+    flex: 1;
+    max-width: 50%;
+    overflow: hidden; /* Обрезаем изображение, выходящее за пределы контейнера */
+    display: flex;
+    align-items: center; /* Центрируем изображение по вертикали */
+    justify-content: center; /* Центрируем изображение по горизонтали */
+}
+
+.about .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполняем контейнер изображением, обрезая его при необходимости */
+    object-position: center; /* Центрируем изображение внутри контейнера */
+}
+
+.about .text {
+    flex: 1;
+    padding-left: 20px;
+    font-family: Roboto, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.13px;
+    text-align: left;
+}
+.about .text p{
+    margin: 0;
+}
+.advantages {
+    font-family: Roboto, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.13px;
+    text-align: left;
+}
+
+.advantagesImages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 20px 0 ;
+}
+
+.advantagesImages img {
+    width: 100%; /* Заполняем контейнер изображением */
+    height: 100%; /* Высота изображения равна высоте контейнера */
+    object-fit: cover; /* Обрезка изображения для заполнения контейнера */
+    object-position: center; /* Центрируем изображение внутри контейнера */
+}
+
+.advantagesImages .imageContainer {
+    flex: 1;
+    max-width: 30%; /* Ширина каждого контейнера с изображением */
+    height: 300px; /* Фиксированная высота для всех изображений */
+    overflow: hidden; /* Обрезаем изображение, выходящее за пределы контейнера */
+    margin: 0 10px; /* Отступы между изображениями */
+}
+
+.advantagesWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Расстояние между списками */
+}
+
+.advantagesItem {
+    width: 48%; /* Ширина каждого блока */
+    font-family: Roboto, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.13px;
+    text-align: left;
+}
+
+
 .footerCenter {
     padding: 100px;
     display: flex;
@@ -81,6 +165,7 @@ footer {
     text-align: left;
     color: #fff;
 }
+
 
 @media (max-width: 768px) {
     .header {
@@ -118,8 +203,23 @@ footer {
     .headerText p {
         font-size: 16px;
     }
+    main{
+        padding: 10px;
+    }
     main h2{
         font-size: 32px;
+    }
+    .about .text{
+        font-size: 20px;
+    }
+    .advantages {
+        font-size: 20px;
+    }
+    .advantagesItem {
+        font-size: 20px;
+    }
+    .advantagesWrapper{
+
     }
     .footerText {
         font-size: 16px;
@@ -136,7 +236,7 @@ footer {
 }
 
 
-@media (max-width: 426px) {
+@media (max-width: 430px) {
     .header {
         height: auto; /* Высота по контенту */
         padding: 7px;
@@ -172,8 +272,50 @@ footer {
     .headerText p {
         font-size: 14px;
     }
+    main{
+        padding: 0;
+    }
     main h2{
         font-size: 24px;
+    }
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about .image {
+        max-width: 100%;
+        height: auto; /* Высота будет зависеть от высоты текста */
+    }
+
+    .about .text {
+        padding-left: 0;
+        font-size: 16px;
+    }
+
+    .advantagesImages {
+        flex-direction: column;
+        text-align: center;
+    }
+
+   .advantagesWrapper{
+        flex-direction: column;
+    }
+
+    .advantagesItem {
+        width: 100%; /* Ширина каждого блока */
+        font-size: 16px;
+   }
+    .advantagesImages .imageContainer {
+        flex: 1;
+        max-width: 80%; /* Ширина каждого контейнера с изображением */
+    }
+    .advantages {
+        padding-left: 0;
+        font-size: 16px;
+    }
+    .advantagesItem  {
+        padding-left: 0;
+        font-size: 16px;
     }
     .footerText {
         font-size: 16px;
