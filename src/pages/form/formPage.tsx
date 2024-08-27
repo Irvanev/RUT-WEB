@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import {Button, Card, Container, Text as CustomText, Loader} from '@gravity-ui/uikit';
+import {ProjectData, ProjectDuration, ProjectLevel} from '../../types/fetchingTypes';
+import {sendFormData} from '../../services/FormService';
+
+import {Button, Card, Container, Text as CustomText, Loader, Modal} from '@gravity-ui/uikit';
 
 import styles from './formPage.module.css';
 import FormCard from '../../components/card/Card';
@@ -9,69 +13,101 @@ import FormTextArea from '../../components/text-area/TextArea';
 import FormRadio from '../../components/radio/Radio';
 
 export const FormPage: React.FC = () => {
-    const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [position, setPosition] = useState('');
-    const [projectDuration, setProjectDuration] = useState('');
-    const [projectLavel, setProjectLavel] = useState('');
-    const [problemHolder, setProblemHolder] = useState('');
-    const [projectGoal, setProjectGoal] = useState('');
-    const [barier, setBarier] = useState('');
-    const [existingSolutions, setExistingSolutions] = useState('');
-    const [keywords, setKeywords] = useState('');
-    const [interestedParties, setInterestedParties] = useState('');
-    const [consultants, setConsultants] = useState('');
-    const [additionalMaterials, setAdditionalMaterials] = useState('');
-    const [projectName, setProjectName] = useState('');
+    const [formData, setFormData] = useState<ProjectData>({
+        applicant_name: '',
+        applicant_email: '',
+        applicant_phone: '',
+        position_and_organization: '',
+        project_duration: ProjectDuration.TwoSemesters,
+        project_level: ProjectLevel.Diagnostic,
+        problem_holder: '',
+        project_goal: '',
+        barrier: '',
+        existing_solutions: '',
+        keywords: '',
+        interested_parties: '',
+        consultants: '',
+        additional_materials: '',
+        project_name: '',
+    });
 
-    const [isFullNameValid, setIsFullNameValid] = useState(true);
-    const [isEmailValid, setIsEmailValid] = useState(true);
-    const [isPhoneValid, setIsPhoneValid] = useState(true);
-    const [isPositionValid, setIsPositionValid] = useState(true);
-    const [isProjectDurationValid, setIsProjectDurationValid] = useState(true);
-    const [isProjectLavelValid, setIsProjectLavelValid] = useState(true);
-    const [isProblemHolderValid, setIsProblemHolderValid] = useState(true);
-    const [isProjectGoalValid, setIsProjectGoalValid] = useState(true);
-    const [isBarierValid, setIsBarierValid] = useState(true);
-    const [isExistingSolutionsValid, setIsExistingSolutionsValid] = useState(true);
-    const [isKeywordsValid, setIsKeywordsValid] = useState(true);
-    const [isInterestedPartiesValid, setIsInterestedPartiesValid] = useState(true);
-    const [isConsultantsValid, setIsConsultantsValid] = useState(true);
-    const [isAdditionalMaterialsValid, setIsAdditionalMaterialsValid] = useState(true);
-    const [isProjectNameValid, setIsProjectNameValid] = useState(true);
+    const [isValid, setIsValid] = useState({
+        applicant_name: true,
+        applicant_email: true,
+        applicant_phone: true,
+        position_and_organization: true,
+        project_duration: true,
+        project_level: true,
+        problem_holder: true,
+        project_goal: true,
+        barrier: true,
+        existing_solutions: true,
+        keywords: true,
+        interested_parties: true,
+        consultants: true,
+        additional_materials: true,
+        project_name: true,
+    });
 
     const [isLoading, setIsLoading] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const navigate = useNavigate();
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleInputChange = (name: keyof ProjectData, value: string) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    const setProjectDuration = (value: ProjectDuration) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            project_duration: value,
+        }));
+    };
+
+    const setProjectLevel = (value: ProjectLevel) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            project_level: value,
+        }));
+    };
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setIsLoading(true);
 
-        const fields = [
-            {value: fullName, setValid: setIsFullNameValid},
-            {value: email, setValid: setIsEmailValid},
-            {value: phone, setValid: setIsPhoneValid},
-            {value: position, setValid: setIsPositionValid},
-            {value: projectDuration, setValid: setIsProjectDurationValid},
-            {value: projectLavel, setValid: setIsProjectLavelValid},
-            {value: problemHolder, setValid: setIsProblemHolderValid},
-            {value: projectGoal, setValid: setIsProjectGoalValid},
-            {value: barier, setValid: setIsBarierValid},
-            {value: existingSolutions, setValid: setIsExistingSolutionsValid},
-            {value: keywords, setValid: setIsKeywordsValid},
-            {value: interestedParties, setValid: setIsInterestedPartiesValid},
-            {value: consultants, setValid: setIsConsultantsValid},
-            {value: additionalMaterials, setValid: setIsAdditionalMaterialsValid},
-            {value: projectName, setValid: setIsProjectNameValid},
-        ];
+        const newIsValid = {...isValid};
+        let allValid = true;
 
-        fields.forEach((field) => field.setValid(!!field.value));
+        Object.keys(formData).forEach((key) => {
+            const field = key as keyof ProjectData;
+            newIsValid[field] = !!formData[field];
+            if (!formData[field]) {
+                allValid = false;
+            }
+        });
 
-        console.log({fullName, email});
+        setIsValid(newIsValid);
 
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
+        if (allValid) {
+            try {
+                console.log('Sending form data:', formData);
+                const response = await sendFormData(formData);
+                console.log('Server response:', response);
+                setModalIsOpen(true);
+            } catch (error) {
+                console.error('Failed to send form data:', error);
+            }
+        }
+
+        setIsLoading(false);
+    };
+
+    const handleCloseModal = () => {
+        setModalIsOpen(false);
+        navigate('/');
     };
 
     return (
@@ -92,9 +128,9 @@ export const FormPage: React.FC = () => {
                     <FormInput
                         name="name"
                         type="text"
-                        value={fullName}
-                        setValue={setFullName}
-                        isValid={isFullNameValid}
+                        value={formData.applicant_name}
+                        setValue={(value) => handleInputChange('applicant_name', value)}
+                        isValid={isValid.applicant_name}
                         placeholder="Александров Александр Александрович"
                     />
                 </FormCard>
@@ -102,9 +138,9 @@ export const FormPage: React.FC = () => {
                     <FormInput
                         name="email"
                         type="email"
-                        value={email}
-                        setValue={setEmail}
-                        isValid={isEmailValid}
+                        value={formData.applicant_email}
+                        setValue={(value) => handleInputChange('applicant_email', value)}
+                        isValid={isValid.applicant_email}
                         placeholder="pdrutmiit@yandex.ru"
                     />
                 </FormCard>
@@ -112,9 +148,9 @@ export const FormPage: React.FC = () => {
                     <FormInput
                         name="phone"
                         type="tel"
-                        value={phone}
-                        setValue={setPhone}
-                        isValid={isPhoneValid}
+                        value={formData.applicant_phone}
+                        setValue={(value) => handleInputChange('applicant_phone', value)}
+                        isValid={isValid.applicant_phone}
                         placeholder="+7(999)111-11-11"
                     />
                 </FormCard>
@@ -127,9 +163,9 @@ export const FormPage: React.FC = () => {
                     </CustomText>
                     <FormTextArea
                         name="position"
-                        value={position}
-                        setValue={setPosition}
-                        isValid={isPositionValid}
+                        value={formData.position_and_organization}
+                        setValue={(value) => handleInputChange('position_and_organization', value)}
+                        isValid={isValid.position_and_organization}
                         placeholder={`Пример: Доцент, кафедра "ЖДСТУ", ФГАОУ ВО (РУТ (МИИТ))`}
                     />
                 </FormCard>
@@ -143,18 +179,18 @@ export const FormPage: React.FC = () => {
                         "2 семестра".
                     </CustomText>
                     <FormRadio
-                        value="1 семестр"
+                        value={ProjectDuration.OneSemester}
                         content="1 учебный семестр"
                         setValue={setProjectDuration}
-                        checked={projectDuration === '1 семестр'}
+                        checked={formData.project_duration === ProjectDuration.OneSemester}
                     />
                     <FormRadio
-                        value="2 семестр"
+                        value={ProjectDuration.TwoSemesters}
                         content="2 учебный семестр"
                         setValue={setProjectDuration}
-                        checked={projectDuration === '2 семестр'}
+                        checked={formData.project_duration === ProjectDuration.TwoSemesters}
                     />
-                    {!isProjectDurationValid && (
+                    {!isValid.project_duration && (
                         <CustomText className={styles.errorMessage}>
                             Это поле обязательно для заполнения
                         </CustomText>
@@ -178,30 +214,30 @@ export const FormPage: React.FC = () => {
                         принципу "лоб в лоб".
                     </CustomText>
                     <FormRadio
-                        value="Диагностический проект"
+                        value={ProjectLevel.Diagnostic}
                         content="Диагностический проект"
-                        setValue={setProjectLavel}
-                        checked={projectLavel === 'Диагностический проект'}
+                        setValue={setProjectLevel}
+                        checked={formData.project_level === ProjectLevel.Diagnostic}
                     />
                     <FormRadio
-                        value="Учебный проект"
+                        value={ProjectLevel.Educational}
                         content="Учебный проект"
-                        setValue={setProjectLavel}
-                        checked={projectLavel === 'Учебный проект'}
+                        setValue={setProjectLevel}
+                        checked={formData.project_level === ProjectLevel.Educational}
                     />
                     <FormRadio
-                        value="Учебно-прикладной проект"
+                        value={ProjectLevel.EducationalApplied}
                         content="Учебно-прикладной проект"
-                        setValue={setProjectLavel}
-                        checked={projectLavel === 'Учебно-прикладной проект'}
+                        setValue={setProjectLevel}
+                        checked={formData.project_level === ProjectLevel.EducationalApplied}
                     />
                     <FormRadio
-                        value="Прикладной проект"
+                        value={ProjectLevel.Applied}
                         content="Прикладной проект"
-                        setValue={setProjectLavel}
-                        checked={projectLavel === 'Прикладной проект'}
+                        setValue={setProjectLevel}
+                        checked={formData.project_level === ProjectLevel.Applied}
                     />
-                    {!isProjectLavelValid && (
+                    {!isValid.project_level && (
                         <CustomText className={styles.errorMessage}>
                             Это поле обязательно для заполнения
                         </CustomText>
@@ -215,9 +251,9 @@ export const FormPage: React.FC = () => {
                     </CustomText>
                     <FormTextArea
                         name="problemHolder"
-                        value={problemHolder}
-                        setValue={setProblemHolder}
-                        isValid={isProblemHolderValid}
+                        value={formData.problem_holder}
+                        setValue={(value) => handleInputChange('problem_holder', value)}
+                        isValid={isValid.problem_holder}
                         placeholder={`Пример: Главный инженер центральной дирекции управления движением Иванов Иван Иванович.`}
                     />
                 </FormCard>
@@ -228,10 +264,10 @@ export const FormPage: React.FC = () => {
                         количественного показателя.
                     </CustomText>
                     <FormTextArea
-                        name="problemHolder"
-                        value={projectGoal}
-                        setValue={setProjectGoal}
-                        isValid={isProjectGoalValid}
+                        name="projectGoal"
+                        value={formData.project_goal}
+                        setValue={(value) => handleInputChange('project_goal', value)}
+                        isValid={isValid.project_goal}
                         placeholder={`Пример: увеличить точность определения вида почерка до 95%.`}
                     />
                 </FormCard>
@@ -241,10 +277,10 @@ export const FormPage: React.FC = () => {
                         цель?".
                     </CustomText>
                     <FormTextArea
-                        name="problemHolder"
-                        value={barier}
-                        setValue={setBarier}
-                        isValid={isBarierValid}
+                        name="barrier"
+                        value={formData.barrier}
+                        setValue={(value) => handleInputChange('barrier', value)}
+                        isValid={isValid.barrier}
                         placeholder={`Пример: Не может из-за имеющихся особенностей работы алгоритмов распознавания человеческого почерка`}
                     />
                 </FormCard>
@@ -255,28 +291,28 @@ export const FormPage: React.FC = () => {
                         выполнения поставленной цели.
                     </CustomText>
                     <FormTextArea
-                        name="problemHolder"
-                        value={existingSolutions}
-                        setValue={setExistingSolutions}
-                        isValid={isExistingSolutionsValid}
+                        name="existingSolutions"
+                        value={formData.existing_solutions}
+                        setValue={(value) => handleInputChange('existing_solutions', value)}
+                        isValid={isValid.existing_solutions}
                         placeholder={`Пример: Зарубежные аналоги не подходят по причине введенных санкций стран западного мира, отечественные программные продукты обеспечивают точности определения на уровне 65% в связи с слабой динамики исследования вопросов идентификации почерков`}
                     />
                 </FormCard>
                 <FormCard title="11. Укажите ключевые слова, по которым ваша заявка будет легко найдена:">
                     <FormTextArea
-                        name="problemHolder"
-                        value={keywords}
-                        setValue={setKeywords}
-                        isValid={isKeywordsValid}
+                        name="keywords"
+                        value={formData.keywords}
+                        setValue={(value) => handleInputChange('keywords', value)}
+                        isValid={isValid.keywords}
                         placeholder={`Пример: машинная модель обучения, векторизация, лемматизация, метод TF-IDF`}
                     />
                 </FormCard>
                 <FormCard title="12. Укажите другие потенциально-заинтересованные стороны:">
                     <FormTextArea
-                        name="problemHolder"
-                        value={interestedParties}
-                        setValue={setInterestedParties}
-                        isValid={isInterestedPartiesValid}
+                        name="interestedParties"
+                        value={formData.interested_parties}
+                        setValue={(value) => handleInputChange('interested_parties', value)}
+                        isValid={isValid.interested_parties}
                         placeholder={`Пример: АО "Мосгипротранс", АО "ИЭРТ", АО "ПандаЭкспрессЛайн"`}
                     />
                 </FormCard>
@@ -289,10 +325,10 @@ export const FormPage: React.FC = () => {
                         центр экспертизы проектов, ОАО "РЖД".
                     </CustomText>
                     <FormTextArea
-                        name="problemHolder"
-                        value={consultants}
-                        setValue={setConsultants}
-                        isValid={isConsultantsValid}
+                        name="consultants"
+                        value={formData.consultants}
+                        setValue={(value) => handleInputChange('consultants', value)}
+                        isValid={isValid.consultants}
                         placeholder={`Пример: Александров Александр Александрович, доцент, кафедра "ЖДСТУ", ФГАОУ ВО (РУТ (МИИТ))`}
                     />
                 </FormCard>
@@ -303,19 +339,19 @@ export const FormPage: React.FC = () => {
                         достижения обозначенной цели.
                     </CustomText>
                     <FormTextArea
-                        name="problemHolder"
-                        value={additionalMaterials}
-                        setValue={setAdditionalMaterials}
-                        isValid={isAdditionalMaterialsValid}
+                        name="additionalMaterials"
+                        value={formData.additional_materials}
+                        setValue={(value) => handleInputChange('additional_materials', value)}
+                        isValid={isValid.additional_materials}
                         placeholder={`Пример: https://example.com`}
                     />
                 </FormCard>
                 <FormCard title="15. Название проекта:">
                     <FormTextArea
-                        name="problemHolder"
-                        value={projectName}
-                        setValue={setProjectName}
-                        isValid={isProjectNameValid}
+                        name="projectName"
+                        value={formData.project_name}
+                        setValue={(value) => handleInputChange('project_name', value)}
+                        isValid={isValid.project_name}
                         placeholder={`Пример: Я знаю кто ты`}
                     />
                 </FormCard>
@@ -325,6 +361,20 @@ export const FormPage: React.FC = () => {
                     </Button>
                 </div>
             </form>
+            <Modal open={modalIsOpen} onClose={handleCloseModal}>
+                <div className={styles.modalContent}>
+                    <CustomText variant="header-1">Ваша форма была успешно отправлена.</CustomText>
+                    <Button
+                        style={{marginTop: '20px'}}
+                        view="action"
+                        size="xl"
+                        disabled={isLoading}
+                        onClick={handleCloseModal}
+                    >
+                        Закрыть
+                    </Button>
+                </div>
+            </Modal>
         </Container>
     );
 };

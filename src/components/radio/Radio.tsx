@@ -1,14 +1,13 @@
-import {FC} from 'react';
 import {Radio} from '@gravity-ui/uikit';
 
-interface FormRadioProps {
-    value: string;
+interface FormRadioProps<T> {
+    value: T;
     content: string;
-    setValue: (value: string) => void;
+    setValue: (value: T) => void;
     checked: boolean;
 }
 
-const FormRadio: FC<FormRadioProps> = ({value, content, setValue, checked}) => {
+const FormRadio = <T extends string>({value, content, setValue, checked}: FormRadioProps<T>) => {
     return (
         <>
             <Radio
@@ -16,7 +15,7 @@ const FormRadio: FC<FormRadioProps> = ({value, content, setValue, checked}) => {
                 content={content}
                 size="l"
                 checked={checked}
-                onChange={(event) => setValue(event.target.value)}
+                onChange={(event) => setValue(event.target.value as T)}
             />
         </>
     );
