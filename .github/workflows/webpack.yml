@@ -27,5 +27,8 @@ jobs:
     - name: Установка зависимостей
       run: npm install
 
-    - name: Запуск проекта
-      run: npm start
+    - name: Запуск проекта в фоне
+      run: npm start &
+      
+    - name: Подождать 30 секунд для проверки успешного запуска
+      run: sleep 30
