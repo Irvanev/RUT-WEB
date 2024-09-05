@@ -1,5 +1,5 @@
 import styles from './homePage.module.css';
-import {Button} from '@gravity-ui/uikit';
+import {Button, Card, Container, Table, Tabs} from '@gravity-ui/uikit';
 import {useNavigate} from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import flagstripe from '../../assets/logo_flagstripe_mini.png';
@@ -7,9 +7,38 @@ import about from '../../assets/about.png';
 import advantages1 from '../../assets/advantages1.png';
 import advantages2 from '../../assets/advantages2.png';
 import advantages3 from '../../assets/advantages3.png';
+import {useEffect, useState} from 'react';
+import {getAllApproved} from '../../services/ApprovedService';
 
 export const HomePage: React.FC = () => {
-    const navigate = useNavigate();
+    const MyTable = Table; // Используем обычный Table
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
+    const [error, setError] = useState<Error | null>(null); // Устанавливаем тип состояния
+
+    const navigate = useNavigate(); // Переместите useNavigate сюда
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const applications = await getAllApproved();
+                setData(applications);
+            } catch (err) {
+                const error = err as Error; // Приведение типа
+                setError(error);
+                console.error('Ошибка при получении заявок:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const columns = [
+        {id: 'applicant_name', header: 'Имя заявителя'},
+        {id: 'project_goal', header: 'Цель проекта'},
+    ];
 
     return (
         <>
@@ -138,7 +167,33 @@ export const HomePage: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <h2 id="project-showcase">ВИТРИНА ПРОЕКТОВ</h2>{' '}
+                <h2 id="project-showcase">ВИТРИНА ПРОЕКТОВ</h2>
+                {loading && <div>Загрузка данных...</div>}
+                {error && <div>{error.message}</div>}
+                <Container className={styles.container} maxWidth="xl">
+                    <div className={styles.cardContainer}>
+                        <Card className={styles.leftCard}>
+                            <Tabs
+                                activeTab="all_projects"
+                                items={[
+                                    {id: 'all_projects', title: 'Все проекты'},
+                                    {id: 'applications', title: 'Заявки'},
+                                ]}
+                            />
+                            <MyTable className={styles.table} data={data} columns={columns} />
+                        </Card>
+                        <Card className={styles.rightCard}>
+                            <Tabs
+                                activeTab="data_projects"
+                                items={[
+                                    {id: 'all_projects', title: 'Все проекты'},
+                                    {id: 'applications', title: 'Заявки'},
+                                ]}
+                            />
+                            <MyTable className={styles.table} data={data} columns={columns} />
+                        </Card>
+                    </div>
+                </Container>
             </main>
             <footer>
                 <div className={styles.footerCenter}>
