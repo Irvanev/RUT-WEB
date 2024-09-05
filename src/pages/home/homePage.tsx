@@ -1,43 +1,63 @@
-import bodyImage from '../../assets/body.png';
-
 import styles from './homePage.module.css';
-import {Col, Container, Row} from '@gravity-ui/uikit';
+import {Button} from '@gravity-ui/uikit';
+import {useNavigate} from 'react-router-dom';
+import logo from '../../assets/logo.png';
+import flagstripe from '../../assets/logo_flagstripe_mini.png';
 
 export const HomePage: React.FC = () => {
+    const navigate = useNavigate();
+
     return (
         <>
-            <header>
-                <img className={styles.bodyImage} src={bodyImage}></img>
+            <header className={styles.header}>
+                <div className={styles.headerText}>
+                    <h1>
+                        Проектная деятельность ИУЦТ! <br /> Что это?
+                    </h1>
+                    <p>
+                        Проектная деятельность ИУЦТ - это вовлечение студентов в работу по решению
+                        практических и исследовательских задач, как в университете, так и за его
+                        пределами. Проектная деятельность является одной из форм осуществления
+                        учебного процесса.
+                    </p>
+                    <div className={styles.buttonContainer}>
+                        <Button
+                            view="action"
+                            size="xl"
+                            pin="round-round"
+                            width="max"
+                            onClick={() =>
+                                document.getElementById('project-showcase')?.scrollIntoView()
+                            }
+                        >
+                            Витрина проектов
+                        </Button>
+                        <Button
+                            view="action"
+                            size="xl"
+                            pin="round-round"
+                            width="max"
+                            onClick={() => navigate('/add')}
+                        >
+                            Проектная заявка
+                        </Button>
+                    </div>
+                </div>
             </header>
-
             <main>
-                <Container maxWidth="l" className={styles.container}>
-                    <h5 className={styles.title}>О проектной деятельности в ИУЦТ</h5>
-                    <Row
-                        space={{
-                            s: 1,
-                            m: '5',
-                        }}
-                        spaceRow={{
-                            s: 5,
-                            m: '1',
-                        }}
-                    >
-                        <Col s="12" m="6" l="2" xl="3">
-                            <span>jbrfed</span>
-                        </Col>
-                        <Col s="12" m="6" l="2" xl="3">
-                            <span>jbrfed</span>
-                        </Col>
-                        <Col s="6" m="12" xl="3">
-                            <span>jbrfed</span>
-                        </Col>
-                        <Col s="6" m="12" xl="3">
-                            <span>jbrfed</span>
-                        </Col>
-                    </Row>
-                </Container>
+                <h2>О проектной деятельности в ИУЦТ</h2>
+                <h2>Приемущества проектной деятельности</h2>
+                <h2 id="project-showcase">ВИТРИНА ПРОЕКТОВ</h2>{' '}
             </main>
+            <footer>
+                <div className={styles.footerCenter}>
+                    <img className={styles.footerImageLogo} src={logo} alt="Logo IUDT" />
+                    <div className={styles.footerText}>
+                        <p>© 2024 ИУЦТ</p>
+                    </div>
+                    <img className={styles.footerImage} src={flagstripe} alt="Logo Flagstripe" />
+                </div>
+            </footer>
         </>
     );
 };

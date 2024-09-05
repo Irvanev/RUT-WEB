@@ -1,7 +1,6 @@
 @use '@gravity-ui/uikit/styles/themes';
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 html,
 body,
@@ -10,14 +9,11 @@ body,
     min-width: 320px;
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 }
 
 .g-root {
     @include themes.g-theme-common;
-
-    --g-font-family-sans: 'Inter', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    --g-font-family-monospace: 'Roboto Mono', 'Menlo', 'Monaco', 'Consolas', 'Ubuntu Mono',
-        'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', 'Courier', monospace;
 
     &_theme_light {
         @include themes.g-theme-light;
@@ -54,8 +50,8 @@ body,
         --g-color-private-brand-50-solid: rgb(232, 235, 239);
 
         --g-color-base-brand: rgb(27, 54, 93);
-        --g-color-base-background: rgb(255, 255, 255);
-        --g-color-base-brand-hover: var(--g-color-private-brand-600-solid);
+        --g-color-base-background: rgba(242, 242, 242, 0.95);
+        --g-color-base-brand-hover: var(--g-color-private-brand-500);
         --g-color-base-selection: var(--g-color-private-brand-200);
         --g-color-base-selection-hover: var(--g-color-private-brand-300);
         --g-color-line-brand: var(--g-color-private-brand-600-solid);
