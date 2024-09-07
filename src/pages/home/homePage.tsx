@@ -1,5 +1,5 @@
 import styles from './homePage.module.css';
-import {Button, Card, Container, Table, Tabs} from '@gravity-ui/uikit';
+import {Button, Card, Container, Loader, Table} from '@gravity-ui/uikit';
 import {useNavigate} from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import flagstripe from '../../assets/logo_flagstripe_mini.png';
@@ -11,20 +11,34 @@ import {useEffect, useState} from 'react';
 import {getAllApproved} from '../../services/ApprovedService';
 
 export const HomePage: React.FC = () => {
+    interface Project {
+        ProjectName: string;
+        ProjectGoal: string;
+        ProblemHolder: string;
+        ProjectDuration: string;
+        ProjectLevel: string;
+        Barrier: string;
+        ExistingSolutions: string;
+        Keywords: string;
+        // Добавьте другие поля, если есть
+    }
+
     const MyTable = Table; // Используем обычный Table
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
     const [error, setError] = useState<Error | null>(null); // Устанавливаем тип состояния
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     const navigate = useNavigate(); // Переместите useNavigate сюда
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const applications = await getAllApproved();
+                const response = await getAllApproved();
+                const applications = response.applications; // Доступ к массиву заявок
                 setData(applications);
             } catch (err) {
-                const error = err as Error; // Приведение типа
+                const error = err as Error;
                 setError(error);
                 console.error('Ошибка при получении заявок:', error);
             } finally {
@@ -36,8 +50,8 @@ export const HomePage: React.FC = () => {
     }, []);
 
     const columns = [
-        {id: 'applicant_name', header: 'Имя заявителя'},
-        {id: 'project_goal', header: 'Цель проекта'},
+        {id: 'ProjectName', name: 'Название проекта'},
+        {id: 'ProjectGoal', name: 'Цель проекта'},
     ];
 
     return (
@@ -168,29 +182,69 @@ export const HomePage: React.FC = () => {
                     </div>
                 </div>
                 <h2 id="project-showcase">ВИТРИНА ПРОЕКТОВ</h2>
-                {loading && <div>Загрузка данных...</div>}
-                {error && <div>{error.message}</div>}
                 <Container className={styles.container} maxWidth="xl">
                     <div className={styles.cardContainer}>
                         <Card className={styles.leftCard}>
-                            <Tabs
-                                activeTab="all_projects"
-                                items={[
-                                    {id: 'all_projects', title: 'Все проекты'},
-                                    {id: 'applications', title: 'Заявки'},
-                                ]}
-                            />
-                            <MyTable className={styles.table} data={data} columns={columns} />
+                            {error ? (
+                                <div className={styles.errorMessage}>
+                                    <h2>Ошибка загрузки данных</h2>
+                                    <p>{error.message}</p>
+                                </div>
+                            ) : loading ? (
+                                <Loader className={styles.loader} />
+                            ) : (
+                                <MyTable
+                                    data={data}
+                                    className={styles.shit_table}
+                                    columns={columns}
+                                    wordWrap={true}
+                                    stickyHorizontalScroll={false}
+                                    onRowClick={(row: Project) => setSelectedProject(row)}
+                                />
+                            )}
                         </Card>
-                        <Card className={styles.rightCard}>
-                            <Tabs
-                                activeTab="data_projects"
-                                items={[
-                                    {id: 'all_projects', title: 'Все проекты'},
-                                    {id: 'applications', title: 'Заявки'},
-                                ]}
-                            />
-                            <MyTable className={styles.table} data={data} columns={columns} />
+                        <Card className={styles.leftCard}>
+                            {selectedProject ? (
+                                <div>
+                                    <h1 className={styles.detailsHeader}>
+                                        {selectedProject.ProjectName}
+                                    </h1>
+                                    <div className={styles.details}>
+                                        <div className={styles.detailsRow}>
+                                            <strong>Цель проекта:</strong>
+                                            <p>{selectedProject.ProjectGoal}</p>
+                                        </div>
+                                        <div className={styles.detailsRow}>
+                                            <strong>Заказчик:</strong>
+                                            <p>{selectedProject.ProblemHolder}</p>
+                                        </div>
+                                        <div className={styles.detailsRow}>
+                                            <strong>Барьер проекта:</strong>
+                                            <p>{selectedProject.Barrier}</p>
+                                        </div>
+                                        <div className={styles.detailsRow}>
+                                            <strong>Срок:</strong>
+                                            <p>{selectedProject.ProjectDuration}</p>
+                                        </div>
+                                        <div className={styles.detailsRow}>
+                                            <strong>Существущие решения:</strong>
+                                            <p>{selectedProject.ExistingSolutions}</p>
+                                        </div>
+                                        <div className={styles.detailsRow}>
+                                            <strong>Ключевые слова:</strong>
+                                            <p>{selectedProject.Keywords}</p>
+                                        </div>
+                                        <div className={styles.detailsRow}>
+                                            <strong>Уровень проекта:</strong>
+                                            <p>{selectedProject.ProjectLevel}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <p className={styles.noProject}>
+                                    Выберите проект для отображения деталей.
+                                </p>
+                            )}
                         </Card>
                     </div>
                 </Container>
