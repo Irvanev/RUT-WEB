@@ -20,14 +20,17 @@ export const HomePage: React.FC = () => {
         Barrier: string;
         ExistingSolutions: string;
         Keywords: string;
-        // Добавьте другие поля, если есть
     }
 
-    const MyTable = Table; // Используем обычный Table
+    const MyTable = Table;
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
-    const [error, setError] = useState<Error | null>(null); // Устанавливаем тип состояния
+    const [error, setError] = useState<Error | null>(null);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const columns = [
+        {id: 'ProjectName', name: 'Название проекта'},
+        {id: 'ProjectGoal', name: 'Цель проекта'},
+    ];
 
     const navigate = useNavigate(); // Переместите useNavigate сюда
 
@@ -48,11 +51,6 @@ export const HomePage: React.FC = () => {
 
         fetchData();
     }, []);
-
-    const columns = [
-        {id: 'ProjectName', name: 'Название проекта'},
-        {id: 'ProjectGoal', name: 'Цель проекта'},
-    ];
 
     return (
         <>
@@ -186,19 +184,20 @@ export const HomePage: React.FC = () => {
                     <div className={styles.cardContainer}>
                         <Card className={styles.leftCard}>
                             {error ? (
-                                <div className={styles.errorMessage}>
+                                <div className={styles.errorMessageContainer}>
                                     <h2>Ошибка загрузки данных</h2>
                                     <p>{error.message}</p>
                                 </div>
                             ) : loading ? (
-                                <Loader className={styles.loader} />
+                                <div className={styles.loaderContainer}>
+                                    <Loader />
+                                </div>
                             ) : (
                                 <MyTable
                                     data={data}
                                     className={styles.shit_table}
                                     columns={columns}
                                     wordWrap={true}
-                                    stickyHorizontalScroll={false}
                                     onRowClick={(row: Project) => setSelectedProject(row)}
                                 />
                             )}
@@ -240,10 +239,19 @@ export const HomePage: React.FC = () => {
                                         </div>
                                     </div>
                                 </div>
+                            ) : loading ? (
+                                <div className={styles.loaderContainer}>
+                                    <Loader />
+                                </div>
+                            ) : error ? (
+                                <div className={styles.errorMessageContainer}>
+                                    <h2>Ошибка загрузки данных</h2>
+                                    <p>{error.message}</p>
+                                </div>
                             ) : (
-                                <p className={styles.noProject}>
-                                    Выберите проект для отображения деталей.
-                                </p>
+                                <div className={styles.loaderContainer}>
+                                    <p>Выберите проект для отображения деталей.</p>
+                                </div>
                             )}
                         </Card>
                     </div>

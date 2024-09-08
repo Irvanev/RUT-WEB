@@ -254,8 +254,28 @@ footer {
     align-items: center;
     padding-top: 250px;
 }
-.loader{
-    align-self: center;
+.loaderContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.errorMessageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Занимает всю высоту карточки */
+    text-align: center; /* Центрует текст внутри контейнера */
+}
+
+.errorMessageContainer h2 {
+    margin-bottom: 10px;
+    color: red; /* Опционально: можно задать цвет текста для заголовка ошибки */
+}
+
+.errorMessageContainer p {
+    color: #666; /* Цвет текста для описания ошибки */
 }
 
 
