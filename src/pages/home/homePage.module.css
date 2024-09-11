@@ -1,5 +1,5 @@
 .header {
-    background: linear-gradient(90.55deg, rgba(0, 0, 0, 0) 0.41%, rgba(0, 0, 0, 0.7) 99.47%), url('../../assets/body.png') center/cover no-repeat;
+    background: linear-gradient(90.55deg, rgba(0, 0, 0, 0) 0.41%, rgba(0, 0, 0, 0.8) 99.47%), url('../../assets/body.png') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -19,7 +19,7 @@
 
 .headerText h1 {
     font-family: Roboto, sans-serif;
-    font-size: 36px;
+    font-size: clamp(1.25rem, 0.865rem + 1.026vw, 2.25rem);
     font-weight: 400;
     line-height: 42.19px;
     text-align: left;
@@ -27,7 +27,7 @@
 
 .headerText p {
     font-family: Roboto, sans-serif;
-    font-size: 24px;
+    font-size: clamp(1rem, 0.808rem + 0.513vw, 1.5rem);
     font-weight: 400;
     line-height: 28.13px;
     text-align: left;
@@ -42,19 +42,103 @@
 
 main {
     background: rgba(242, 242, 242, 1);
-
+    padding: 100px ;
 }
 main h2 {
     font-family: Roboto, sans-serif;
-    font-size: 40px;
+    font-size: clamp(1.5rem, 1.115rem + 1.026vw, 2.5rem);
     font-weight: 400;
     line-height: 46.88px;
     text-align: center;
+    margin: 0;
 }
 footer {
     background: rgba(27, 54, 93, 1);
 
 }
+
+.about {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 25px 0 25px 0;
+    background-color: #f2f2f2;
+}
+
+.about .image {
+    flex: 1;
+    max-width: 50%;
+    overflow: hidden; /* Обрезаем изображение, выходящее за пределы контейнера */
+    display: flex;
+    align-items: center; /* Центрируем изображение по вертикали */
+    justify-content: center; /* Центрируем изображение по горизонтали */
+}
+
+.about .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполняем контейнер изображением, обрезая его при необходимости */
+    object-position: center; /* Центрируем изображение внутри контейнера */
+}
+
+.about .text {
+    flex: 1;
+    padding-left: 20px;
+    font-family: Roboto, sans-serif;
+    font-size: clamp(1rem, 0.808rem + 0.513vw, 1.5rem);
+    font-weight: 400;
+    line-height: 28.13px;
+    text-align: left;
+}
+.about .text p{
+    margin: 0;
+}
+.advantages {
+    font-family: Roboto, sans-serif;
+    font-size: clamp(1rem, 0.808rem + 0.513vw, 1.5rem);
+    font-weight: 400;
+    line-height: 28.13px;
+    text-align: left;
+}
+
+.advantagesImages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 20px 0 ;
+}
+
+.advantagesImages img {
+    width: 100%; /* Заполняем контейнер изображением */
+    height: 100%; /* Высота изображения равна высоте контейнера */
+    object-fit: cover; /* Обрезка изображения для заполнения контейнера */
+    object-position: center; /* Центрируем изображение внутри контейнера */
+}
+
+.advantagesImages .imageContainer {
+    flex: 1;
+    max-width: 30%; /* Ширина каждого контейнера с изображением */
+    height: 300px; /* Фиксированная высота для всех изображений */
+    overflow: hidden; /* Обрезаем изображение, выходящее за пределы контейнера */
+    margin: 0 10px; /* Отступы между изображениями */
+}
+
+.advantagesWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Расстояние между списками */
+}
+
+.advantagesItem {
+    width: 48%; /* Ширина каждого блока */
+    font-family: Roboto, sans-serif;
+    font-size: clamp(1rem, 0.808rem + 0.513vw, 1.5rem);
+    font-weight: 400;
+    line-height: 28.13px;
+    text-align: left;
+}
+
+
 .footerCenter {
     padding: 100px;
     display: flex;
@@ -64,23 +148,139 @@ footer {
 }
 
 .footerImageLogo {
-    width: 10rem;
-    height: 10rem;
+    width: clamp(50px, 50%, 200px);
+    height: auto; /* чтобы сохранить пропорции */
 }
 
 .footerImage {
-    width: 50rem;
+    width: clamp(280px, 50%, 10000px);
     height: auto;
     padding-top: 100px;
 }
 .footerText {
     font-family: Roboto, sans-serif;
-    font-size: 20px;
+    font-size: clamp(1rem, 0.904rem + 0.256vw, 1.25rem);
     font-weight: 400;
     line-height: 23.44px;
     text-align: left;
     color: #fff;
 }
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    height: 650px;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    align-items: stretch;
+    gap: 7%;
+}
+
+.leftCard{
+    overflow-y: auto; /* Включаем вертикальную прокрутку, если контент выходит за пределы */
+    flex: 1;
+    width: 50%;
+    background-color: #ffffff;
+    padding: 20px 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.col {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+.shit_table {
+    font-family: Inter, sans-serif;
+    font-size: clamp(0.625rem, 0.553rem + 0.192vw, 0.813rem);    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+
+    width: 100%;
+    white-space: normal;
+    max-width: 100%;
+    table-layout: fixed;
+}
+
+.details {
+    font-family: Inter,sans-serif;
+    font-size: clamp(0.625rem, 0.505rem + 0.321vw, 0.938rem);    line-height: 18.15px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+.detailsHeader {
+    font-size: clamp(1.25rem, 0.769rem + 1.282vw, 2.5rem);
+    font-weight: 400;
+    line-height: 46.88px;
+    text-align: left;
+}
+
+.detailsRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+}
+
+.detailsRow strong {
+    flex: 1;
+    text-align: left;
+    font-weight: 600;
+    margin-right: 45px;
+}
+
+.detailsRow p {
+    flex: 2;
+    text-align: left;
+}
+.noProject{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 250px;
+}
+.loaderContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.errorMessageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Занимает всю высоту карточки */
+    text-align: center; /* Центрует текст внутри контейнера */
+}
+
+.errorMessageContainer h2 {
+    margin-bottom: 10px;
+    color: red; /* Опционально: можно задать цвет текста для заголовка ошибки */
+}
+
+.errorMessageContainer p {
+    color: #666; /* Цвет текста для описания ошибки */
+}
+
+
+
+
 
 @media (max-width: 768px) {
     .header {
@@ -95,95 +295,95 @@ footer {
         max-width: 100%;
         padding: 10px;
     }
-
-    .headerText h1 {
-        font-size: 28px;
-        line-height: 32px;
-    }
-
     .headerText p {
-        font-size: 18px;
         line-height: 24px;
     }
-
     .buttonContainer {
         flex-direction: column;
         gap: 10px;
     }
-
-    .headerText h1 {
-        font-size: 24px;
+    main{
+        padding: 10px;
     }
-
-    .headerText p {
-        font-size: 16px;
+}
+@media (max-width: 710px) {
+    .container{
+        height: 1000px;
     }
-    main h2{
-        font-size: 32px;
+    .leftCard{
+        width: 100%;
     }
-    .footerText {
-        font-size: 16px;
-    }
-    .footerImageLogo {
-        width: 10rem;
-        height: auto; /* Maintain aspect ratio */
-    }
-
-    .footerImage {
-        width: 45rem;
-        height: auto; /* Maintain aspect ratio */
+    .cardContainer{
+        flex-direction: column;
+        gap: 15px;
     }
 }
 
-
-@media (max-width: 426px) {
+@media (max-width: 430px) {
     .header {
         height: auto; /* Высота по контенту */
         padding: 7px;
         justify-content: center;
     }
-
     .headerText {
         margin-right: 0;
         text-align: center;
         max-width: 100%;
         padding: 7px;
     }
-
-    .headerText h1 {
-        font-size: 20px;
-        line-height: 28px;
-    }
-
     .headerText p {
-        font-size: 16px;
         line-height: 20px;
     }
-
     .buttonContainer {
         flex-direction: column;
         gap: 7px;
     }
-
-    .headerText h1 {
-        font-size: 20px;
+    main{
+        padding: 7px;
+    }
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about .image {
+        max-width: 100%;
+        height: auto; /* Высота будет зависеть от высоты текста */
+    }
+    .about .text {
+        padding-left: 0;
+    }
+    .advantagesImages {
+        flex-direction: column;
+        text-align: center;
     }
 
-    .headerText p {
-        font-size: 14px;
+    .advantagesWrapper{
+        flex-direction: column;
     }
-    main h2{
-        font-size: 24px;
+    .advantagesItem {
+        width: 100%; /* Ширина каждого блока */
     }
-    .footerText {
-        font-size: 16px;
+    .advantagesImages .imageContainer {
+        flex: 1;
+        max-width: 80%; /* Ширина каждого контейнера с изображением */
     }
-    .footerImageLogo {
-        width: 7rem;
-        height: auto; /* Maintain aspect ratio */
+    .advantages {
+        padding-left: 0;
     }
-    .footerImage {
-        width: 14rem;
-        height: auto; /* Maintain aspect ratio */
+    .advantagesItem  {
+        padding-left: 0;
+    }
+    .container{
+        height: 1000px;
+    }
+    .leftCard{
+        width: 100%;
+    }
+    .cardContainer{
+        flex-direction: column;
+        gap: 15px;
+    }
+    .detailsHeader{
+        line-height:25px;
     }
 }
