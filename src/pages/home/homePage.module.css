@@ -1,5 +1,7 @@
 .header {
-    background: linear-gradient(90.55deg, rgba(0, 0, 0, 0) 0.41%, rgba(0, 0, 0, 0.8) 99.47%), url('../../assets/body.png') center/cover no-repeat;
+    background:
+        linear-gradient(90.55deg, rgba(0, 0, 0, 0) 0.41%, rgba(0, 0, 0, 0.8) 99.47%),
+        url('../../assets/body.png') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -42,7 +44,7 @@
 
 main {
     background: rgba(242, 242, 242, 1);
-    padding: 100px ;
+    padding: 100px;
 }
 main h2 {
     font-family: Roboto, sans-serif;
@@ -54,7 +56,6 @@ main h2 {
 }
 footer {
     background: rgba(27, 54, 93, 1);
-
 }
 
 .about {
@@ -90,7 +91,7 @@ footer {
     line-height: 28.13px;
     text-align: left;
 }
-.about .text p{
+.about .text p {
     margin: 0;
 }
 .advantages {
@@ -105,7 +106,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0 20px 0 ;
+    padding: 20px 0 20px 0;
 }
 
 .advantagesImages img {
@@ -138,7 +139,6 @@ footer {
     text-align: left;
 }
 
-
 .footerCenter {
     padding: 100px;
     display: flex;
@@ -166,7 +166,6 @@ footer {
     color: #fff;
 }
 
-
 .container {
     display: flex;
     justify-content: center;
@@ -185,7 +184,7 @@ footer {
     gap: 7%;
 }
 
-.leftCard{
+.leftCard {
     overflow-y: auto; /* Включаем вертикальную прокрутку, если контент выходит за пределы */
     flex: 1;
     width: 50%;
@@ -195,18 +194,16 @@ footer {
     box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
 }
 
-
-
 .col {
     display: flex;
     justify-content: center;
     margin-top: 10px;
 }
 
-
 .shit_table {
     font-family: Inter, sans-serif;
-    font-size: clamp(0.625rem, 0.553rem + 0.192vw, 0.813rem);    font-weight: 400;
+    font-size: clamp(0.625rem, 0.553rem + 0.192vw, 0.813rem);
+    font-weight: 400;
     line-height: 18px;
     text-align: left;
 
@@ -217,8 +214,9 @@ footer {
 }
 
 .details {
-    font-family: Inter,sans-serif;
-    font-size: clamp(0.625rem, 0.505rem + 0.321vw, 0.938rem);    line-height: 18.15px;
+    font-family: Inter, sans-serif;
+    font-size: clamp(0.625rem, 0.505rem + 0.321vw, 0.938rem);
+    line-height: 18.15px;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -248,13 +246,13 @@ footer {
     flex: 2;
     text-align: left;
 }
-.noProject{
+.noProject {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 250px;
 }
-.loaderContainer{
+.loaderContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -278,10 +276,6 @@ footer {
     color: #666; /* Цвет текста для описания ошибки */
 }
 
-
-
-
-
 @media (max-width: 768px) {
     .header {
         height: auto; /* Высота по контенту */
@@ -302,18 +296,18 @@ footer {
         flex-direction: column;
         gap: 10px;
     }
-    main{
+    main {
         padding: 10px;
     }
 }
 @media (max-width: 710px) {
-    .container{
+    .container {
         height: 1000px;
     }
-    .leftCard{
+    .leftCard {
         width: 100%;
     }
-    .cardContainer{
+    .cardContainer {
         flex-direction: column;
         gap: 15px;
     }
@@ -338,7 +332,7 @@ footer {
         flex-direction: column;
         gap: 7px;
     }
-    main{
+    main {
         padding: 7px;
     }
     .about {
@@ -357,7 +351,7 @@ footer {
         text-align: center;
     }
 
-    .advantagesWrapper{
+    .advantagesWrapper {
         flex-direction: column;
     }
     .advantagesItem {
@@ -370,20 +364,20 @@ footer {
     .advantages {
         padding-left: 0;
     }
-    .advantagesItem  {
+    .advantagesItem {
         padding-left: 0;
     }
-    .container{
+    .container {
         height: 1000px;
     }
-    .leftCard{
+    .leftCard {
         width: 100%;
     }
-    .cardContainer{
+    .cardContainer {
         flex-direction: column;
         gap: 15px;
     }
-    .detailsHeader{
-        line-height:25px;
+    .detailsHeader {
+        line-height: 25px;
     }
 }

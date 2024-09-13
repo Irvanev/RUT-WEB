@@ -24,7 +24,7 @@ export const HomePage: React.FC = () => {
 
     const MyTable = Table;
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const columns = [
@@ -32,13 +32,13 @@ export const HomePage: React.FC = () => {
         {id: 'ProjectGoal', name: 'Цель проекта'},
     ];
 
-    const navigate = useNavigate(); // Переместите useNavigate сюда
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await getAllApproved();
-                const applications = response.applications; // Доступ к массиву заявок
+                const applications = response.applications;
                 setData(applications);
             } catch (err) {
                 const error = err as Error;

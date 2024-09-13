@@ -10,6 +10,19 @@ export enum ProjectLevel {
     Applied = 'Прикладной проект',
 }
 
+export interface Project {
+    ID: number;
+    ProjectName: string;
+    ProjectGoal: string;
+    ProblemHolder: string;
+    ProjectDuration: string;
+    ProjectLevel: string;
+    Barrier: string;
+    ExistingSolutions: string;
+    Keywords: string;
+    Status: string;
+}
+
 export interface ProjectData {
     applicant_name: string;
     applicant_email: string;
