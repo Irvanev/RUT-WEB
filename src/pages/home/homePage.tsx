@@ -41,7 +41,6 @@ export const HomePage: React.FC = () => {
                 const applications = response.applications;
                 setData(applications);
             } catch (err) {
-                const error = err as Error;
                 setError(error);
                 console.error('Ошибка при получении заявок:', error);
             } finally {
@@ -191,6 +190,10 @@ export const HomePage: React.FC = () => {
                             ) : loading ? (
                                 <div className={styles.loaderContainer}>
                                     <Loader />
+                                </div>
+                            ) : !data || data.length === 0 ? (
+                                <div className={styles.errorMessageContainer}>
+                                    <h2>Нет данных для отображения</h2>
                                 </div>
                             ) : (
                                 <MyTable
