@@ -182,7 +182,12 @@ export const AdminPage: React.FC = () => {
                                             view="action"
                                             className={styles.regButton}
                                             onClick={() => handleApprove(selectedProject.ID)}
-                                            disabled={!(selectedProject.Status === 'Удалена')}
+                                            disabled={
+                                                !(
+                                                    selectedProject.Status === 'Удалена' ||
+                                                    selectedProject.Status === 'На рассмотрении'
+                                                )
+                                            }
                                         >
                                             Одобрить
                                         </Button>
@@ -190,7 +195,12 @@ export const AdminPage: React.FC = () => {
                                             view="outlined-danger"
                                             className={styles.regButton}
                                             onClick={() => handleDelete(selectedProject.ID)}
-                                            disabled={!(selectedProject.Status === 'Допущена')}
+                                            disabled={
+                                                !(
+                                                    selectedProject.Status === 'Допущена' ||
+                                                    selectedProject.Status === 'На рассмотрении'
+                                                )
+                                            }
                                         >
                                             Удалить
                                         </Button>

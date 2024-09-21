@@ -1,6 +1,6 @@
 export enum ProjectDuration {
     OneSemester = '1 семестр',
-    TwoSemesters = '2 семестр',
+    TwoSemesters = '2 семестрa',
 }
 
 export enum ProjectLevel {
